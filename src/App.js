@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
@@ -32,6 +32,7 @@ function App() {
           </li>
           <li className="nav-item">
             {user ? (
+              // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
                 onClick={logout}
                 className="nav-link"
@@ -49,22 +50,22 @@ function App() {
       </nav>
 
       <div className="container mt-3">
-        <Routes>
+        <Switch>
           <Route exact path="/" component={RestaurantsList} />
           <Route path="/restaurants" component={RestaurantsList} />
           <Route
-            path="/restaurants/:id/review"
-            render={(props) => <AddReview {...props} user={user} />}
+            path="/restaurant/:id/review"
+            render={props => <AddReview {...props} user={user} />}
           />
           <Route
-            path="/restaurants/:id"
-            render={(props) => <Restaurant {...props} user={user} />}
+            path="/restaurant/:id"
+            render={props => <Restaurant {...props} user={user} />}
           />
           <Route
             path="/login"
-            render={(props) => <Login {...props} login={login} />}
+            render={props => <Login {...props} login={login} />}
           />
-        </Routes>
+        </Switch>
       </div>
     </div>
   );
