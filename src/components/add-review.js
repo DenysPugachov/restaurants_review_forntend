@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 const AddReview = props => {
   let initialReviewState = "";
-  let editing = false;
+  let isReviewEdited = false;
 
   if (props.location.state && props.location.state.currentReview) {
-    editing = true;
+    isReviewEdited = true;
     initialReviewState = props.location.state.currentReview.text;
   }
 
@@ -19,14 +19,14 @@ const AddReview = props => {
   };
 
   const saveReview = () => {
-    var data = {
+    const data = {
       text: review,
       name: props.user.name,
       user_id: props.user.id,
       restaurant_id: props.match.params.id,
     };
 
-    if (editing) {
+    if (isReviewEdited) {
       data.review_id = props.location.state.currentReview._id;
       RestaurantDataService.updateReview(data)
         .then(response => {
@@ -66,7 +66,7 @@ const AddReview = props => {
             <div>
               <div className="form-group">
                 <label htmlFor="description">
-                  {editing ? "Edit" : "Create"}
+                  {isReviewEdited ? "Edit" : "Create"}
                   Review
                 </label>
                 <input
